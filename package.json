@@ -1,0 +1,22 @@
+{
+  "name": "service-get-some-help",
+  "version": "1.0.0",
+  "description": "The backend service that sits in front of the Spotify API. This service processes spotify data for `ui-get-some-help`.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichaelH10991/api-get-some-help.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MichaelH10991/api-get-some-help/issues"
+  },
+  "homepage": "https://github.com/MichaelH10991/api-get-some-help#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
