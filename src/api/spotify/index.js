@@ -1,6 +1,8 @@
-const getTopListens = require('./getTopListens')
+const getTopListens = require("./getTopListens");
 
 module.exports = {
-  mount: '/spotify',
-  init: (router) => getTopListens.init(router)
-}
+  name: "spotify",
+  init: (router) => {
+    getTopListens.init(router);
+  },
+};

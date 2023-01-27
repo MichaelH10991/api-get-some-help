@@ -1,11 +1,12 @@
 const init = (router) => {
   const getTopListens = (req, res) => {
-    res.send('hello')
-  }
+    // ui wil request and send tokens
+    res.send("hello");
+  };
 
-  router.get('/get_top_listens', getTopListens)
+  router.get("/get_top_listens", getTopListens);
 
-  return router
-}
+  return router;
+};
 
-module.exports = { init }
+module.exports = { init, name: "spotify" };

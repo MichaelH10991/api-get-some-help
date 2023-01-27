@@ -1,16 +1,32 @@
-const fs = require('fs');
-const spotify = require('./spotify');
-const dir = fs.readdirSync(`${__dirname}`).filter(file => file !== 'index.js');
+const fs = require("fs");
+const path = require("path");
+const express = require("express");
 
-console.log(dir)
-module.exports = { 
-  init: (app, router) => {
-    dir.map(file => {
-      const module = require(file)
-      if(!module.init){
-        throw new Error('must have an init')
-      }
-      app.use(module.mount, module.init && module.init(router))
-    })
-  }
-}
+const mountEndpoints = (router, config, absolutePath = __dirname) => {
+  const dir = fs
+    .readdirSync(absolutePath)
+    .filter((file) => file !== "index.js");
+
+  dir.forEach((file) => {
+    const filePath = path.join(absolutePath, file);
+    if (fs.statSync(filePath).isDirectory()) {
+      const subRouter = express.Router();
+      mountEndpoints(subRouter, config, filePath);
+      router.use(`/${file}`, subRouter);
+    }
+    const modulePath = `./${path.join(
+      path.relative(__dirname, absolutePath),
+      file
+    )}`;
+    const route = require(modulePath);
+    if (route.init) {
+      route.init(router, config.api[route.name]);
+    }
+  });
+};
+
+module.exports = {
+  init: (router, config) => {
+    mountEndpoints(router, config);
+  },
+};
