@@ -20,7 +20,6 @@ const init = (router, config) => {
   router.get("/login", function (req, res) {
     var state = generateRandomString(config.random_length);
     res.cookie(config.spotify_auth_state, state);
-    console.log(config);
     res.redirect(
       config.auth_url +
         querystring.stringify({

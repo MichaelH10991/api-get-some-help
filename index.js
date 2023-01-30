@@ -6,16 +6,23 @@ const cookieParser = require("cookie-parser");
 
 const { api } = require("./src");
 
+const startupOutput = `
+app listening on 8080
+goto: http://localhost:8080
+`
+
 const app = express();
 
-app.use("/", router);
+console.log(config)
 
 app
-  .use(express.static(__dirname + "/public"))
-  .use(cors())
-  .use(cookieParser());
+.use(express.static(__dirname + "/public"))
+.use(cors())
+.use(cookieParser());
 
 // setup routes
 api.init(router, config);
 
-app.listen(8080, console.log(`app listening on 8080`));
+app.use("/", router);
+
+app.listen(config.app.port, console.log(startupOutput));

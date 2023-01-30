@@ -4,8 +4,11 @@
   "description": "The backend service that sits in front of the Spotify API. This service processes spotify data for `ui-get-some-help`.",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "source .dev.env && nodemon index.js"
+    "dev": "source .dev.env && nodemon index.js",
+    "setup": "./scripts/populate_secrets.sh",
+    "start:setup": "./scripts/populate_secrets.sh node index.js"
   },
   "repository": {
     "type": "git",
