@@ -1,6 +1,7 @@
 const request = require("request");
+const querystring = require("querystring");
 
-const createAuthOptions = (config) => {
+const createAuthOptions = (config, code) => {
   return {
     url: config.token_url,
     form: {
@@ -11,7 +12,7 @@ const createAuthOptions = (config) => {
     headers: {
       Authorization:
         "Basic " +
-        new Buffer(client_id + ":" + client_secret).toString("base64"),
+        new Buffer(config.client_id + ":" + config.client_secret).toString("base64"),
     },
     json: true,
   };
@@ -24,7 +25,7 @@ const init = (router, config = {}) => {
 
     var code = req.query.code || null;
     var state = req.query.state || null;
-    var storedState = req.cookies ? req.cookies[stateKey] : null;
+    var storedState = req.cookies ? req.cookies[config.spotify_auth_state] : null;
 
     if (state === null || state !== storedState) {
       res.redirect(
@@ -34,10 +35,11 @@ const init = (router, config = {}) => {
           })
       );
     } else {
-      res.clearCookie(stateKey);
-      const authOptions = createAuthOptions(config);
+      res.clearCookie(config.spotify_auth_state);
+      const authOptions = createAuthOptions(config, code);
       request.post(authOptions, function (error, response, body) {
         if (!error && response.statusCode === 200) {
+          // can get access_token and refresh_token from window
           var access_token = body.access_token,
             refresh_token = body.refresh_token;
 
@@ -56,8 +58,8 @@ const init = (router, config = {}) => {
           res.redirect(
             "/#" +
               querystring.stringify({
-                access_token: config.access_token,
-                refresh_token: config.refresh_token,
+                access_token: access_token,
+                refresh_token: refresh_token,
               })
           );
         } else {

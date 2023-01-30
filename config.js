@@ -4,7 +4,7 @@ const config = {
     auth: {
       client_id: process.env.CLIENT_ID || "client id",
       client_secret: process.env.CLIENT_SECRET || "client secret",
-      redirect_uri: process.env.REDIRECT_URI || "http://localhost:8080",
+      redirect_uri: process.env.REDIRECT_URI || "http://localhost:8080/callback",
       token_url:
         process.env.TOKEN_URL || "https://accounts.spotify.com/api/token",
       auth_url:
@@ -17,6 +17,10 @@ const config = {
     //spotify endpoints config
     spotify: {},
   },
+  app: {
+    port: process.env.PORT || "8080"
+
+  }
 };
 
 module.exports = config;
