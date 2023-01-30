@@ -32,9 +32,9 @@ Run the following;
 
 `npm run setup` to configure the application.
 
-`npm run dev` to start the service.
+This will walk you through the configuration steps for this service.
 
-This will walk through the configuration steps for this service.
+`npm run dev` to start the service.
 
 ## Usage
 

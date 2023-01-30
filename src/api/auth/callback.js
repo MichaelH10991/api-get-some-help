@@ -62,7 +62,7 @@ const init = (router, config = {}) => {
 
           // we can also pass the token to the browser to make requests from there
           res.redirect(
-            "/#" +
+            `${config.redirect_uri}/#` +
               querystring.stringify({
                 access_token: access_token,
                 refresh_token: refresh_token,
