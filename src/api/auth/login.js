@@ -26,7 +26,7 @@ const init = (router, config) => {
           response_type: "code",
           client_id: config.client_id,
           scope: config.scope,
-          redirect_uri: "http://localhost:8080/auth/callback",
+          redirect_uri: config.redirect_uri,
           state: state,
         })
     );

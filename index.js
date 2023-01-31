@@ -11,13 +11,18 @@ app listening on 8080
 goto: http://localhost:8080
 `
 
+var corsOptions = {
+  origin: "http://localhost:3000",
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
 const app = express();
 
 console.log(config)
 
 app
-.use(express.static(__dirname + "/public"))
-.use(cors())
+// .use(express.static(__dirname + "/public"))
+.use(cors(corsOptions))
 .use(cookieParser());
 
 // setup routes
